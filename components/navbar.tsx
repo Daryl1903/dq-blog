@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -23,6 +23,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Link from "next/link";
+import {RegisterLink, LoginLink, LogoutLink} from "@kinde-oss/kinde-auth-nextjs/components";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 interface MenuItem {
   title: string;
@@ -43,16 +45,14 @@ interface NavbarProps {
   auth?: {
     login: {
       title: string;
-      url: string;
     };
     signup: {
       title: string;
-      url: string;
     };
   };
 }
 
-const Navbar = ({
+const Navbar = async ({
   logo = {
     url: "https://www.shadcnblocks.com",
     src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
@@ -132,10 +132,13 @@ const Navbar = ({
     },
   ],
   auth = {
-    login: { title: "Login", url: "#" },
-    signup: { title: "Sign up", url: "#" },
+    login: { title: "Login" },
+    signup: { title: "Sign up" },
   },
 }: NavbarProps) => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
   return (
     <header className="sticky top-0 py-4 z-50 w-full border-b- bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-8 xl:px-25">
@@ -161,14 +164,23 @@ const Navbar = ({
               </NavigationMenu>
             </div>
           </div>
-          <div className="flex gap-2">
-            <Button asChild variant="outline" size="sm">
-              <a href={auth.login.url}>{auth.login.title}</a>
-            </Button>
-            <Button asChild size="sm">
-              <a href={auth.signup.url}>{auth.signup.title}</a>
-            </Button>
-          </div>
+          {user ? (
+            <div className="flex items-center gap-4">
+              <p>{user.given_name}</p>
+              <LogoutLink className={buttonVariants({ variant: "secondary"})}>
+                Logout
+              </LogoutLink>
+            </div>
+          ) : (
+            <div className="flex gap-2">
+              <Button asChild variant="outline" size="sm">
+                <LoginLink>{auth.login.title}</LoginLink>
+              </Button>
+              <Button asChild size="sm">
+                <RegisterLink>{auth.signup.title}</RegisterLink>
+              </Button>
+            </div>
+          )}
         </nav>
 
         {/* Mobile Menu */}
@@ -209,14 +221,23 @@ const Navbar = ({
                     {menu.map((item) => renderMobileMenuItem(item))}
                   </Accordion>
 
-                  <div className="flex flex-col gap-3">
-                    <Button asChild variant="outline">
-                      <a href={auth.login.url}>{auth.login.title}</a>
-                    </Button>
-                    <Button asChild>
-                      <a href={auth.signup.url}>{auth.signup.title}</a>
-                    </Button>
-                  </div>
+                  {user ? (
+                    <div className="flex items-center gap-4">
+                      <p>{user.given_name}</p>
+                      <LogoutLink className={buttonVariants({ variant: "secondary"})}>
+                        Logout
+                      </LogoutLink>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col gap-3">
+                      <Button asChild variant="outline">
+                        <LoginLink>{auth.login.title}</LoginLink>
+                      </Button>
+                      <Button asChild>
+                        <RegisterLink>{auth.signup.title}</RegisterLink>
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </SheetContent>
             </Sheet>
