@@ -25,7 +25,7 @@ async function getData() {
 export default function Home() {
   return (
     <div>
-      <div className="flex flex-col items-center justify-center py-30">
+      <div className="flex flex-col items-center justify-center text-center py-30">
         <Badge variant="secondary" className="mb-6">
           Latest Updates
         </Badge>
@@ -33,7 +33,8 @@ export default function Home() {
           Blog Posts
         </h2>
         <p className="mb-8 text-muted-foreground md:text-base lg:max-w-2xl lg:text-lg">
-          Discover the latest trends, tips, and best practices in modern web development. From UI components to design systems, stay updated with our expert insights.
+          Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat.
+          Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere.
         </p>
       </div>
 

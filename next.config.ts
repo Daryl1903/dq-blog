@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: "media.istockphoto.com",
+        hostname: "lh3.googleusercontent.com",
         protocol: "https",
         port: "",
       },
@@ -12,7 +12,12 @@ const nextConfig: NextConfig = {
         hostname: "avatars.githubusercontent.com",
         protocol: "https",
         port: "",
-      }
+      },
+      {
+        hostname: "media.istockphoto.com",
+        protocol: "https",
+        port: "",
+      },
     ]
   }
 };
