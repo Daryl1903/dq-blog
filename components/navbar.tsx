@@ -73,7 +73,7 @@ const Navbar = async ({
   const user = await getUser();
 
   return (
-    <header className="sticky top-0 py-4 z-50 w-full border-b- bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 py-4 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-8 xl:px-25">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex">
